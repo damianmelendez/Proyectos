@@ -1,0 +1,10 @@
+Jose: Dinero,10
+@Eliazar U Veca : Credito,10
+@Emilio U : Oferta de dinero,10
+@jmelendezx : demanda de dinero:,180
+@Jenifer Celeste : relación entre oferta y demanda de dinero,10
+** En cada tema se debe desarrollar,10
+definición, clasificaciones,10
+elementos centras y subtemas,10
+relacionados **,10
+CONFIRMAR DE ENTERADO,10

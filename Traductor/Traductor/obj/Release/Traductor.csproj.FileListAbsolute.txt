@@ -1,0 +1,11 @@
+C:\Users\DELL\Desktop\UNIVERSIDAD\PROYECTOS\Traductor\Traductor\bin\Release\Traductor.exe.config
+C:\Users\DELL\Desktop\UNIVERSIDAD\PROYECTOS\Traductor\Traductor\bin\Release\Traductor.exe
+C:\Users\DELL\Desktop\UNIVERSIDAD\PROYECTOS\Traductor\Traductor\bin\Release\Traductor.pdb
+C:\Users\DELL\Desktop\UNIVERSIDAD\PROYECTOS\Traductor\Traductor\obj\Release\Traductor.csproj.AssemblyReference.cache
+C:\Users\DELL\Desktop\UNIVERSIDAD\PROYECTOS\Traductor\Traductor\obj\Release\Traductor.Form1.resources
+C:\Users\DELL\Desktop\UNIVERSIDAD\PROYECTOS\Traductor\Traductor\obj\Release\Traductor.Properties.Resources.resources
+C:\Users\DELL\Desktop\UNIVERSIDAD\PROYECTOS\Traductor\Traductor\obj\Release\Traductor.csproj.GenerateResource.cache
+C:\Users\DELL\Desktop\UNIVERSIDAD\PROYECTOS\Traductor\Traductor\obj\Release\Traductor.csproj.CoreCompileInputs.cache
+C:\Users\DELL\Desktop\UNIVERSIDAD\PROYECTOS\Traductor\Traductor\obj\Release\Traductor.exe
+C:\Users\DELL\Desktop\UNIVERSIDAD\PROYECTOS\Traductor\Traductor\obj\Release\Traductor.pdb
+C:\Users\DELL\Desktop\UNIVERSIDAD\PROYECTOS\Traductor\Traductor\obj\Release\Traductor.exe.config

@@ -1,0 +1,11 @@
+C:\Users\DELL\Desktop\PRACTICA DE CRUD\Capetas\Capetas\bin\Release\Capetas.exe.config
+C:\Users\DELL\Desktop\PRACTICA DE CRUD\Capetas\Capetas\bin\Release\Capetas.exe
+C:\Users\DELL\Desktop\PRACTICA DE CRUD\Capetas\Capetas\bin\Release\Capetas.pdb
+C:\Users\DELL\Desktop\PRACTICA DE CRUD\Capetas\Capetas\obj\Release\Capetas.csproj.AssemblyReference.cache
+C:\Users\DELL\Desktop\PRACTICA DE CRUD\Capetas\Capetas\obj\Release\Capetas.Form1.resources
+C:\Users\DELL\Desktop\PRACTICA DE CRUD\Capetas\Capetas\obj\Release\Capetas.Properties.Resources.resources
+C:\Users\DELL\Desktop\PRACTICA DE CRUD\Capetas\Capetas\obj\Release\Capetas.csproj.GenerateResource.cache
+C:\Users\DELL\Desktop\PRACTICA DE CRUD\Capetas\Capetas\obj\Release\Capetas.csproj.CoreCompileInputs.cache
+C:\Users\DELL\Desktop\PRACTICA DE CRUD\Capetas\Capetas\obj\Release\Capetas.exe
+C:\Users\DELL\Desktop\PRACTICA DE CRUD\Capetas\Capetas\obj\Release\Capetas.pdb
+C:\Users\DELL\Desktop\PRACTICA DE CRUD\Capetas\Capetas\obj\Release\Capetas.exe.config

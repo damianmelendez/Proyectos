@@ -1,0 +1,26 @@
+Verde shaker jade                                   AV-SJ-
+primera pagina
+Niveles 2
+Exadecimal color 313f35
+                         segunda pagina
+                         niveles 153
+                         eexadecimal 313f35
+-----------------------------------------------------------------
+maple---------------------menos anaranjado---------   AV-SM-
+niveles 2 y despues 1xxxxxxxxxxxxxxxxxxxxxx
+exadecimal bc762b   xxxxxxxxxxxxxxxxxxx
+                         seguda pagina
+                         niveles 153
+                         exadecimal 7d5c39
+-------------------------------------------------------------------
+azul-------------------------mas oscuro     AV-NS-
+nivels 2 y de alli 64xxxxxxxxxxxxxxxx
+exadecimal 18354cxxxxxxxxxxxxxxxxxxx
+                                    segunda imagen
+                                    nivels 153
+                                    exadecimal   0b1823
+------------------------------------------------------
+gris                                       AV-SS-
+                                   niveles 2 y de alli 134
+                                   exadecimal 9fa3a6
+-----------------------------------------------------

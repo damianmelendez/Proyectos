@@ -1,0 +1,6 @@
+Python y manejo de datos → aprender a trabajar con pandas, numpy, CSVs y gráficos,10
+Machine Learning básico → entrenar modelos simples con scikit-learn,10
+Red neuronal desde cero → programar un perceptrón manualmente para entender cómo aprende,10
+Deep Learning aplicado → usar TensorFlow o PyTorch con datasets como MNIST,10
+IA generativa → experimentar con modelos que creen texto o imágenes,10
+Optimización y despliegue → aprender a mejorar modelos y ponerlos en producción (APIs, apps),10

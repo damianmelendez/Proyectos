@@ -1,0 +1,4 @@
+Tares munutos para realizarla,10
+tarea1 5,10
+tarea2 60,10
+etc 1,10

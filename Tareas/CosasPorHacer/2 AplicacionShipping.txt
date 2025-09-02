@@ -1,0 +1,7 @@
+Abrir el login de cabinetryStock,10
+Poner Shiping,10
+	ltl fright,10
+	enable,10
+	direccion      es la unica que cambia podrianos poner una cosa para escribir la etiqueta que debe elegir,10
+	clase 92.5,10
+pasar siguiente pagian,10

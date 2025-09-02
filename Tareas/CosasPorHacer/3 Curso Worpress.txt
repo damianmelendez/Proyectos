@@ -1,0 +1,15 @@
+Video	Tema	Duración,10
+1	Qué es WordPress	2 min,10
+2	WordPress.com vs WordPress.org	3 min,10
+3	Cómo instalar WordPress en local (con XAMPP)	5 min,10
+4	Panel de administración: recorrido rápido	3 min,10
+5	Crear tu primera entrada	3 min,10
+6	Crear páginas y menús	4 min,10
+7	Instalar y activar un tema	3 min,10
+8	Personalizar apariencia	3 min,10
+9	Qué son los plugins + instalar 2	4 min,10
+10	Formularios de contacto básicos	3 min,10
+...	...	...,10
+30	Cómo publicar tu web con hosting real	5 min,10
+hola mundo,10
+3 videos por semana,10

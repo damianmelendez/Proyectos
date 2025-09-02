@@ -1,0 +1,7 @@
+*.exe
+*.dll
+*.class
+*.jar
+/bin/
+/obj/
+/out/

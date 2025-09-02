@@ -1,0 +1,11 @@
+C:\Users\DELL\Desktop\UNIVERSIDAD\PROYECTOS\Administrador\Administrador\bin\Debug\Administrador.exe.config
+C:\Users\DELL\Desktop\UNIVERSIDAD\PROYECTOS\Administrador\Administrador\bin\Debug\Administrador.exe
+C:\Users\DELL\Desktop\UNIVERSIDAD\PROYECTOS\Administrador\Administrador\bin\Debug\Administrador.pdb
+C:\Users\DELL\Desktop\UNIVERSIDAD\PROYECTOS\Administrador\Administrador\obj\Debug\Administrador.csproj.AssemblyReference.cache
+C:\Users\DELL\Desktop\UNIVERSIDAD\PROYECTOS\Administrador\Administrador\obj\Debug\Administrador.lbTareasHechas.resources
+C:\Users\DELL\Desktop\UNIVERSIDAD\PROYECTOS\Administrador\Administrador\obj\Debug\Administrador.Properties.Resources.resources
+C:\Users\DELL\Desktop\UNIVERSIDAD\PROYECTOS\Administrador\Administrador\obj\Debug\Administrador.csproj.GenerateResource.cache
+C:\Users\DELL\Desktop\UNIVERSIDAD\PROYECTOS\Administrador\Administrador\obj\Debug\Administrador.csproj.CoreCompileInputs.cache
+C:\Users\DELL\Desktop\UNIVERSIDAD\PROYECTOS\Administrador\Administrador\obj\Debug\Administrador.exe
+C:\Users\DELL\Desktop\UNIVERSIDAD\PROYECTOS\Administrador\Administrador\obj\Debug\Administrador.pdb
+C:\Users\DELL\Desktop\UNIVERSIDAD\PROYECTOS\Administrador\Administrador\obj\Debug\Administrador.exe.config

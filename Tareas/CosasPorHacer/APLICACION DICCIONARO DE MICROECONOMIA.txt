@@ -1,0 +1,4 @@
+Crear el proyecoto web para pasarlo a android,10
+
+boton de agregar,10
+boton de borrar,10

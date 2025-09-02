@@ -1,0 +1,95 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\DELL\\Desktop\\UNIVERSIDAD\\PROYECTOS\\Traductor\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{00000000-0000-0000-0000-000000000000}|\u003CSolution\u003E|Traductor||{04B8AB82-A572-4FEF-95CE-5222444B6B64}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{513EC3BF-0596-4B9E-B7E4-A38BEE4BC62A}|Traductor\\Traductor.csproj|c:\\users\\dell\\desktop\\universidad\\proyectos\\traductor\\traductor\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{513EC3BF-0596-4B9E-B7E4-A38BEE4BC62A}|Traductor\\Traductor.csproj|solutionrelative:traductor\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{513EC3BF-0596-4B9E-B7E4-A38BEE4BC62A}|Traductor\\Traductor.csproj|c:\\users\\dell\\desktop\\universidad\\proyectos\\traductor\\traductor\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{513EC3BF-0596-4B9E-B7E4-A38BEE4BC62A}|Traductor\\Traductor.csproj|solutionrelative:traductor\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{513EC3BF-0596-4B9E-B7E4-A38BEE4BC62A}|Traductor\\Traductor.csproj|c:\\users\\dell\\desktop\\universidad\\proyectos\\traductor\\traductor\\||{B270807C-D8C6-49EB-8EBE-8E8D566637A1}|5e9a8ac2-4f34-4521-858f-4c248ba31532"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 6,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{3ae79031-e1bc-11d0-8f78-00a0c9110057}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{eefa5220-e298-11d0-8f78-00a0c9110057}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{1c64b9c2-e352-428e-a56d-0ace190b99a6}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{c9c0ae26-aa77-11d2-b3f0-0000f87570ee}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{2d7728c2-de0a-45b5-99aa-89b609dfde73}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{c93a910a-0fa6-4307-93a4-f2bd61ec7828}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Traductor",
+              "DocumentMoniker": "C:\\Users\\DELL\\Desktop\\UNIVERSIDAD\\PROYECTOS\\Traductor\\Traductor\\Traductor.csproj",
+              "RelativeDocumentMoniker": "Traductor\\Traductor.csproj",
+              "ToolTip": "C:\\Users\\DELL\\Desktop\\UNIVERSIDAD\\PROYECTOS\\Traductor\\Traductor\\Traductor.csproj",
+              "RelativeToolTip": "Traductor\\Traductor.csproj",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
+              "WhenOpened": "2025-06-29T19:39:56.33Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Form1.cs",
+              "DocumentMoniker": "C:\\Users\\DELL\\Desktop\\UNIVERSIDAD\\PROYECTOS\\Traductor\\Traductor\\Form1.cs",
+              "RelativeDocumentMoniker": "Traductor\\Form1.cs",
+              "ToolTip": "C:\\Users\\DELL\\Desktop\\UNIVERSIDAD\\PROYECTOS\\Traductor\\Traductor\\Form1.cs",
+              "RelativeToolTip": "Traductor\\Form1.cs",
+              "ViewState": "AgIAADYAAAAAAAAAAAAAAEAAAAA6AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-29T19:03:22.911Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Form1.cs [Dise\u00F1o]",
+              "DocumentMoniker": "C:\\Users\\DELL\\Desktop\\UNIVERSIDAD\\PROYECTOS\\Traductor\\Traductor\\Form1.cs",
+              "RelativeDocumentMoniker": "Traductor\\Form1.cs",
+              "ToolTip": "C:\\Users\\DELL\\Desktop\\UNIVERSIDAD\\PROYECTOS\\Traductor\\Traductor\\Form1.cs [Dise\u00F1o]",
+              "RelativeToolTip": "Traductor\\Form1.cs [Dise\u00F1o]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-29T17:40:07.999Z",
+              "EditorCaption": " [Dise\u00F1o]"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

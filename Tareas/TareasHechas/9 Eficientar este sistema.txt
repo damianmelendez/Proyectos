@@ -1,0 +1,5 @@
+tarea , tiempo en minutos,10
+ejemplo,10
+tarea estadistica, 120,10
+despues agregarle una funcionalidad a el programa para que exporte eso a un csv ,10
+para poder filtrar taras de menos y menos tiempo ,10
