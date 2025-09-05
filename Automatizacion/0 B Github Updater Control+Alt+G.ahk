@@ -6,7 +6,7 @@ Sleep, 3000  ; espera a que Git Bash abra
 ; Ejecuta los comandos de Git
 Send, git add .{Enter}
 Sleep, 1500
-Send, git commit -m "actualización automática"{Enter}
+Send, git commit -m "actualización Del dia"{Enter}
 Sleep, 1500
 Send, git push{Enter}
 Return
