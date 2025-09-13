@@ -49,4 +49,7 @@ public class Perssona {
         return genero;
     }
     
+    public boolean darGenero(){
+    return genero;
+    }
 }

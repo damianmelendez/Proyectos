@@ -39,5 +39,9 @@ public class Clientes3 extends Perssona {
     public void setDireccion(String direccion) {
         this.direccion = direccion;
     }
+    
+    public String darNit(){
+    return nit;
+    }
 }
     

@@ -5,6 +5,7 @@
 package com.mycompany.clientes;
 
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -12,10 +13,10 @@ import java.util.ArrayList;
  */
 public class Clientes1 extends javax.swing.JFrame {
     
-    private ArrayList<Clientes> Clientes;
+    private ArrayList<Clientes3> clientes;
     
     public Clientes1(){
-        Clientes = new ArrayList<>();
+        clientes = new ArrayList<>();
         initComponents();
     }
 
@@ -34,15 +35,15 @@ public class Clientes1 extends javax.swing.JFrame {
         int posicion = -1;
         for (int i = 0; i < clientes.size(); i++) {
              // Error probable aquí: debería ser getNit()
-            if (clientes.get(i).darNit().equals(jtfNit.getText())) { 
+            if (clientes.get(i).getNit().equals(jtfNit.getText())) { 
                 client = clientes.get(i);
-            jtfNombres.setText(client.getNombres());
+            jtfNombres.setText(client.getNombre());
             jtfApellidos.setText(client.getApellidos());
             jtfNit.setText(client.getNit());
             jtfDireccion.setText(client.getDireccion());
             
             // Error probable aquí: debería ser getGenero()
-            if (client.darGenero()) { 
+            if (client.getGenero()) { 
                 jrbFemenino.setSelected(true);
             } else {
                 jrbMasculino.setSelected(true);
@@ -53,7 +54,6 @@ public class Clientes1 extends javax.swing.JFrame {
         }
     }
     return posicion;
-}
     }
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -97,6 +97,11 @@ public class Clientes1 extends javax.swing.JFrame {
         });
 
         jbEliminar.setText("Eliminar");
+        jbEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbEliminarActionPerformed(evt);
+            }
+        });
 
         jbBuscar.setText("Bucar");
         jbBuscar.addActionListener(new java.awt.event.ActionListener() {
@@ -203,16 +208,59 @@ public class Clientes1 extends javax.swing.JFrame {
     
         // Si el cliente no existe (posición es -1), lo agrega a la lista
         if (posicion == -1) {
-            Clientes3.add(cliente);
+            clientes.add(cliente);
         } else { // Si ya existe, actualiza sus datos en la posición encontrada
-            Clientes3.set(posicion, cliente);
+            clientes.set(posicion, cliente);
+        }
+        System.out.println("Clientes Guardados");
+        for (Clientes3 c : clientes) {
+            System.out.println(c.getNombre()+" "+c.getApellidos()+" "+c.getNit()+" "+c.getDireccion());
         }
     }//GEN-LAST:event_jbGuardarActionPerformed
 
     private void jbBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbBuscarActionPerformed
         // TODO add your handling code here:
+        buscarCliente();
     }//GEN-LAST:event_jbBuscarActionPerformed
 
+    private void jbEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbEliminarActionPerformed
+        // TODO add your handling code here:
+        boolean encontrado = false;
+    
+    // Recorremos la lista de clientes
+    for (int i = 0; i < clientes.size(); i++) {
+        if (clientes.get(i).getNit().equals(jtfNit.getText())) {
+            clientes.remove(i);  // Eliminamos el cliente
+            encontrado = true;
+            break;
+        }
+    }
+    
+    // Mostramos mensaje según si se eliminó o no
+    if (encontrado) {
+        JOptionPane.showMessageDialog(this, 
+            "Registro Eliminado", 
+            "Eliminar", 
+            JOptionPane.INFORMATION_MESSAGE);
+    } else {
+        JOptionPane.showMessageDialog(this, 
+            "Registro no Encontrado para eliminar", 
+            "Eliminar", 
+            JOptionPane.WARNING_MESSAGE);
+    }
+    
+    // Limpiamos los campos de texto
+    limpiarCampos();
+    }//GEN-LAST:event_jbEliminarActionPerformed
+
+    public void limpiarCampos(){
+    jtfNombres.setText("");
+    jtfApellidos.setText("");
+    jtfNit.setText("");
+    jtfDireccion.setText("");
+    buttonGroup1.clearSelection();
+    }
+    
     /**
      * @param args the command line arguments
      */
