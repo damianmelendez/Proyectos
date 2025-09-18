@@ -2,13 +2,13 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  */
 
-package com.mycompany.formulario6;
+package com.mycompany.formulario9;
 
 /**
  *
  * @author DELL
  */
-public class Formulario6 {
+public class Formulario9 {
 
     public static void main(String[] args) {
         System.out.println("Hello World!");
