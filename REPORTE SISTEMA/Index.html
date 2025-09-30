@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enviar Datos a Google Sheets</title>
+    <style>
+        body { font-family: sans-serif; display: flex; justify-content: center; align-items: center; height: 100vh; background-color: #f0f2f5; }
+        .container { background: white; padding: 2rem; border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); text-align: center; }
+        input[type="text"] { width: 80%; padding: 10px; margin-bottom: 1rem; border: 1px solid #ccc; border-radius: 4px; }
+        button { padding: 10px 20px; font-size: 1rem; color: white; background-color: #007bff; border: none; border-radius: 4px; cursor: pointer; }
+        button:hover { background-color: #0056b3; }
+        #status { margin-top: 1rem; font-weight: bold; }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Escribe en la Hoja de Cálculo</h1>
+        <p>Escribe algo en el cuadro y presiona el botón para guardarlo.</p>
+        
+        <textarea id="cuadroDeTexto" placeholder="Escribe aquí..." rows="10"></textarea>
+        
+        <button id="botonEnviar">Guardar en Drive</button>
+        
+        <div id="status"></div>
+    </div>
+
+    <script>
+        // ¡IMPORTANTE! Pega aquí la URL que copiaste de Google Apps Script.
+        const URL_DEL_SCRIPT = "https://script.google.com/macros/s/AKfycbylF_yl4tJkphpdfwdB3oB_iZhrQaQ1kfHu2KUrd2h9zTQzMYDZUZ0vkyPpeEQH-pj_/exec";
+
+        // Obtenemos referencias a los elementos de la página.
+        const miFormulario = document.getElementById('cuadroDeTexto');
+        const miBoton = document.getElementById('botonEnviar');
+        const miStatus = document.getElementById('status');
+
+        // Añadimos un "oyente" que se activa cuando alguien hace clic en el botón.
+        miBoton.addEventListener('click', () => {
+            
+            // Mostramos un mensaje al usuario.
+            miStatus.textContent = "Enviando, por favor espera...";
+
+            // Creamos un objeto con la información que queremos enviar.
+            const datosParaEnviar = {
+                texto: miFormulario.value
+            };
+
+            // Usamos la función 'fetch' para enviar los datos a nuestro script de Google.
+            fetch(URL_DEL_SCRIPT, {
+                method: 'POST', // Le decimos que es una petición POST
+                body: JSON.stringify(datosParaEnviar) // Convertimos nuestro objeto a texto
+            })
+            .then(res => res.json())
+            .then(data => {
+                // El script de Google nos responde, y aquí manejamos la respuesta.
+                console.log(data);
+                miStatus.textContent = data.message; // Mostramos el mensaje de éxito.
+                miFormulario.value = ""; // Limpiamos el cuadro de texto.
+            })
+            .catch(error => {
+                // Si algo sale mal, mostramos un error.
+                console.error('Error:', error);
+                miStatus.textContent = "Ocurrió un error al guardar.";
+            });
+        });
+    </script>
+
+</body>
+</html>
