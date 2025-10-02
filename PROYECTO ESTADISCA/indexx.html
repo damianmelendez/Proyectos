@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora para Datos Agrupados</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start; /* Alineado arriba */
+            min-height: 100vh;
+        }
+        .container {
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            text-align: center;
+            width: 90%;
+            max-width: 600px;
+        }
+        h1 {
+            color: #333;
+        }
+        .fila-input {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 10px;
+            align-items: center;
+        }
+        .fila-input input {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .fila-input label {
+            flex-shrink: 0; /* Evita que las etiquetas se encojan */
+        }
+        #tabla-entradas {
+            margin-bottom: 20px;
+        }
+        .controles button {
+            background-color: #28a745;
+            color: white;
+            padding: 8px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-right: 10px;
+        }
+        .btn-eliminar {
+            background-color: #dc3545 !important;
+            padding: 5px 10px !important;
+            font-size: 12px;
+        }
+        button#btn-calcular {
+            background-color: #007BFF;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            width: 100%;
+        }
+        button#btn-calcular:hover {
+            background-color: #0056b3;
+        }
+        #resultado {
+            margin-top: 20px;
+            text-align: left;
+            background-color: #e9ecef;
+            padding: 15px;
+            border-radius: 5px;
+        }
+        #resultado p {
+            margin: 10px 0;
+            font-size: 18px;
+        }
+        #resultado span {
+            font-weight: bold;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Calculadora para Datos Agrupados</h1>
+        <p>Añade filas para cada intervalo de clase y su frecuencia.</p>
+
+        <div id="tabla-entradas">
+            <div class="fila-input">
+                <label>Intervalo (ej: 10-20):</label>
+                <input type="text" class="intervalo-input" placeholder="LímiteInferior-LímiteSuperior">
+                <label>Frecuencia:</label>
+                <input type="number" class="frecuencia-input" placeholder="f">
+            </div>
+        </div>
+
+        <div class="controles">
+            <button onclick="agregarFila()">+ Añadir Fila</button>
+        </div>
+        
+        <hr style="margin: 20px 0;">
+
+        <button id="btn-calcular" onclick="procesarDatos()">Calcular</button>
+        
+        <div id="resultado"></div>
+    </div>
+
+    <script>
+        function agregarFila() {
+            const tabla = document.getElementById('tabla-entradas');
+            const primeraFila = tabla.querySelector('.fila-input');
+            const nuevaFila = primeraFila.cloneNode(true); // Clonar la fila
+
+            // Limpiar los valores de la nueva fila
+            nuevaFila.querySelector('.intervalo-input').value = '';
+            nuevaFila.querySelector('.frecuencia-input').value = '';
+
+            // Añadir botón de eliminar
+            const btnEliminar = document.createElement('button');
+            btnEliminar.textContent = 'X';
+            btnEliminar.className = 'btn-eliminar';
+            btnEliminar.onclick = function() {
+                this.parentElement.remove();
+            };
+            nuevaFila.appendChild(btnEliminar);
+            
+            tabla.appendChild(nuevaFila);
+        }
+
+        function procesarDatos() {
+            const filas = document.querySelectorAll('#tabla-entradas .fila-input');
+            let datosClases = [];
+            let frecuenciaAcumulada = 0;
+            let esValido = true;
+
+            filas.forEach((fila, index) => {
+                const intervaloStr = fila.querySelector('.intervalo-input').value;
+                const frecuencia = parseFloat(fila.querySelector('.frecuencia-input').value);
+
+                if (!intervaloStr || isNaN(frecuencia) || frecuencia < 0) {
+                    esValido = false;
+                    return;
+                }
+
+                const limites = intervaloStr.split('-').map(n => parseFloat(n.trim()));
+                if (limites.length !== 2 || isNaN(limites[0]) || isNaN(limites[1]) || limites[0] >= limites[1]) {
+                    esValido = false;
+                    return;
+                }
+
+                const [limiteInferior, limiteSuperior] = limites;
+                frecuenciaAcumulada += frecuencia;
+
+                datosClases.push({
+                    intervalo: `${limiteInferior}-${limiteSuperior}`,
+                    limiteInferior,
+                    limiteSuperior,
+                    frecuencia,
+                    marcaClase: (limiteInferior + limiteSuperior) / 2, // Punto medio
+                    frecuenciaAcumulada: frecuenciaAcumulada
+                });
+            });
+
+            if (!esValido || datosClases.length === 0) {
+                alert("Por favor, revisa los datos. Asegúrate de que todos los campos estén completos y sean correctos.");
+                return;
+            }
+
+            // Calcular y mostrar resultados
+            const totalDatos = frecuenciaAcumulada;
+            const media = calcularMedia(datosClases, totalDatos);
+            const mediana = calcularMediana(datosClases, totalDatos);
+            const moda = calcularModa(datosClases);
+
+            const divResultado = document.getElementById('resultado');
+            divResultado.innerHTML = `
+                <p>N (Total de datos): <span>${totalDatos}</span></p>
+                <hr>
+                <p>➕ Media Aritmética: <span>${media.toFixed(2)}</span></p>
+                <p>📊 Mediana: <span>${mediana.toFixed(2)}</span></p>
+                <p>🔄 Moda: <span>${moda}</span></p>
+            `;
+        }
+
+        // --- FUNCIONES DE CÁLCULO PARA DATOS AGRUPADOS ---
+
+        // Calcular la Media: Σ(f * Mc) / N
+        function calcularMedia(datos, totalDatos) {
+            const sumaPonderada = datos.reduce((acc, clase) => acc + (clase.frecuencia * clase.marcaClase), 0);
+            return sumaPonderada / totalDatos;
+        }
+
+        // Calcular la Mediana: Li + [ (N/2 - Fa-1) / f ] * A
+        function calcularMediana(datos, totalDatos) {
+            const posicion = totalDatos / 2;
+            const claseMediana = datos.find(clase => clase.frecuenciaAcumulada >= posicion);
+            const indexClaseMediana = datos.indexOf(claseMediana);
+            
+            const Li = claseMediana.limiteInferior;
+            const Fa_anterior = indexClaseMediana === 0 ? 0 : datos[indexClaseMediana - 1].frecuenciaAcumulada;
+            const f = claseMediana.frecuencia;
+            const A = claseMediana.limiteSuperior - claseMediana.limiteInferior;
+
+            return Li + ((posicion - Fa_anterior) / f) * A;
+        }
+
+        // Calcular la Moda: Li + [ (d1) / (d1 + d2) ] * A
+        function calcularModa(datos) {
+            if (datos.length === 0) return "N/A";
+
+            // Encontrar la clase con la frecuencia más alta (clase modal)
+            const claseModal = datos.reduce((prev, current) => (prev.frecuencia > current.frecuencia) ? prev : current);
+            const indexClaseModal = datos.indexOf(claseModal);
+
+            // Verificar si todas las frecuencias son iguales (no hay moda)
+            const todasFrecuenciasIguales = datos.every(clase => clase.frecuencia === claseModal.frecuencia);
+            if (todasFrecuenciasIguales && datos.length > 1) {
+                return "No hay moda (frecuencias iguales)";
+            }
+            
+            const Li = claseModal.limiteInferior;
+            const f_modal = claseModal.frecuencia;
+            const f_anterior = (indexClaseModal === 0) ? 0 : datos[indexClaseModal - 1].frecuencia;
+            const f_siguiente = (indexClaseModal === datos.length - 1) ? 0 : datos[indexClaseModal + 1].frecuencia;
+            const A = claseModal.limiteSuperior - claseModal.limiteInferior;
+
+            const d1 = f_modal - f_anterior;
+            const d2 = f_modal - f_siguiente;
+            
+            if ((d1 + d2) === 0) return "No se puede calcular (división por cero)";
+
+            const moda = Li + (d1 / (d1 + d2)) * A;
+            return moda.toFixed(2);
+        }
+    </script>
+
+</body>
+</html>

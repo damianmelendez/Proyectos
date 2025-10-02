@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora Estadística</title>
+    <style>
+        /* Estilos básicos para la página */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .container {
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            text-align: center;
+            width: 90%;
+            max-width: 500px;
+        }
+        h1 {
+            color: #333;
+        }
+        input[type="text"] {
+            width: calc(100% - 22px);
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        button {
+            background-color: #007BFF;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        #resultado {
+            margin-top: 20px;
+            text-align: left;
+            background-color: #e9ecef;
+            padding: 15px;
+            border-radius: 5px;
+        }
+        #resultado p {
+            margin: 10px 0;
+            font-size: 18px;
+        }
+        #resultado span {
+            font-weight: bold;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Calculadora de Media, Mediana y Moda</h1>
+        <p>Ingresa los números separados por comas (ej: 1, 2, 3, 4, 5)</p>
+        
+        <input type="text" id="numerosInput" placeholder="Escribe los números aquí...">
+        
+        <button onclick="calcularTodo()">Calcular</button>
+        
+        <div id="resultado"></div>
+    </div>
+
+    <script>
+        // Esta es la lógica que hace los cálculos
+
+        function calcularTodo() {
+            // 1. OBTENER Y LIMPIAR LOS DATOS DE ENTRADA
+            const stringNumeros = document.getElementById('numerosInput').value;
+            
+            // Convertir el string en un array de números
+            const arrayNumeros = stringNumeros.split(',')    // Separa por comas
+                                            .map(item => parseFloat(item.trim())) // Convierte cada parte a número
+                                            .filter(item => !isNaN(item)); // Elimina cualquier cosa que no sea un número
+
+            if (arrayNumeros.length === 0) {
+                alert("Por favor, ingresa números válidos.");
+                return;
+            }
+
+            // Ordenar los números de menor a mayor (necesario para la mediana)
+            arrayNumeros.sort((a, b) => a - b);
+
+            // 2. REALIZAR LOS CÁLCULOS
+            const media = calcularMedia(arrayNumeros);
+            const mediana = calcularMediana(arrayNumeros);
+            const moda = calcularModa(arrayNumeros);
+
+            // 3. MOSTRAR LOS RESULTADOS EN LA PÁGINA
+            const divResultado = document.getElementById('resultado');
+            divResultado.innerHTML = `
+                <p>🔢 Números ordenados: <span>${arrayNumeros.join(', ')}</span></p>
+                <hr>
+                <p>➕ Media Aritmética: <span>${media.toFixed(2)}</span></p>
+                <p>📊 Mediana: <span>${mediana}</span></p>
+                <p>🔄 Moda: <span>${moda}</span></p>
+            `;
+        }
+
+        // Función para calcular la Media Aritmética
+        function calcularMedia(numeros) {
+            const suma = numeros.reduce((acumulador, valorActual) => acumulador + valorActual, 0);
+            return suma / numeros.length;
+        }
+
+        // Función para calcular la Mediana
+        function calcularMediana(numeros) {
+            const mitad = Math.floor(numeros.length / 2);
+            
+            // Si la cantidad de números es impar, la mediana es el número del medio
+            if (numeros.length % 2 !== 0) {
+                return numeros[mitad];
+            } else {
+                // Si es par, es el promedio de los dos números del medio
+                return (numeros[mitad - 1] + numeros[mitad]) / 2.0;
+            }
+        }
+
+        // Función para calcular la Moda
+        function calcularModa(numeros) {
+            const frecuencia = {};
+            let maxFrecuencia = 0;
+            let modas = [];
+
+            // Contar la frecuencia de cada número
+            numeros.forEach(numero => {
+                frecuencia[numero] = (frecuencia[numero] || 0) + 1;
+                if (frecuencia[numero] > maxFrecuencia) {
+                    maxFrecuencia = frecuencia[numero];
+                }
+            });
+
+            // Si todos los números aparecen la misma cantidad de veces, no hay moda.
+            if (maxFrecuencia === 1) {
+                return "No hay moda (todos los números aparecen una vez)";
+            }
+
+            // Encontrar todos los números que tienen la máxima frecuencia
+            for (const numero in frecuencia) {
+                if (frecuencia[numero] === maxFrecuencia) {
+                    modas.push(Number(numero));
+                }
+            }
+            
+            return modas.join(', ');
+        }
+    </script>
+
+</body>
+</html>
