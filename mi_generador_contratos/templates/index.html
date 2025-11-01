@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Generador de Contratos PDF</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; background-color: #f4f4f9; }
+        .container { max-width: 800px; margin: auto; background: white; padding: 20px; border-radius: 8px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+        h1 { text-align: center; color: #333; }
+        h2 { border-bottom: 2px solid #ccc; padding-bottom: 5px; margin-top: 25px; color: #555; }
+        label { display: block; margin: 10px 0 5px; font-weight: bold; }
+        input[type="text"] { width: 100%; padding: 8px; box-sizing: border-box; border: 1px solid #ccc; border-radius: 4px; }
+        .input-group { margin-bottom: 15px; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 15px; }
+        .full-width { grid-column: 1 / -1; }
+        button { background-color: #007bff; color: white; padding: 12px 20px; border: none; border-radius: 4px; cursor: pointer; font-size: 16px; margin-top: 20px; width: 100%; }
+        button:hover { background-color: #0056b3; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Generador Automático de Contrato de Arrendamiento (PDF)</h1>
+    <form method="POST">
+        
+        <h2>Datos del Arrendante (Propietario)</h2>
+        <div class="grid">
+            <div class="input-group full-width"><label>Nombre Completo Arrendante:</label><input type="text" name="NOMBRE_ARRENDANTE_COMPLETO" required></div>
+            <div class="input-group"><label>Edad:</label><input type="text" name="EDAD_ARRENDANTE" required></div>
+            <div class="input-group"><label>Estado Civil:</label><input type="text" name="ESTADO_CIVIL_ARRENDANTE" required></div>
+            <div class="input-group"><label>Profesión:</label><input type="text" name="PROFESION_ARRENDANTE" required></div>
+            <div class="input-group full-width"><label>DPI (código único):</label><input type="text" name="DPI_ARRENDANTE_NUMERO" required></div>
+        </div>
+
+        <h2>Datos del Arrendatario (Inquilino)</h2>
+        <div class="grid">
+            <div class="input-group full-width"><label>Nombre Completo Arrendatario:</label><input type="text" name="NOMBRE_ARRENDATARIO_COMPLETO" required></div>
+            <div class="input-group"><label>Edad:</label><input type="text" name="EDAD_ARRENDATARIO" required></div>
+            <div class="input-group"><label>Estado Civil:</label><input type="text" name="ESTADO_CIVIL_ARRENDATARIO" required></div>
+            <div class="input-group"><label>Profesión:</label><input type="text" name="PROFESION_ARRENDATARIO" required></div>
+            <div class="input-group full-width"><label>DPI (código único):</label><input type="text" name="DPI_ARRENDATARIO_NUMERO" required></div>
+        </div>
+        
+        <h2>Condiciones y Plazos</h2>
+        <div class="grid">
+            <div class="input-group full-width"><label>Dirección del Inmueble:</label><input type="text" name="DIRECCION_INMUEBLE" required></div>
+            <div class="input-group"><label>Destino (Ej: OFICINA, VIVIENDA):</label><input type="text" name="DESTINO_INMUEBLE" required></div>
+            <div class="input-group"><label>Plazo (Número Ej: 12):</label><input type="text" name="PLAZO_MESES_NUMERO" required></div>
+            <div class="input-group full-width"><label>Plazo (Letras Ej: DOCE MESES):</label><input type="text" name="PLAZO_MESES_LETRA" required></div>
+        </div>
+
+        <h2>Fechas</h2>
+        <div class="grid">
+            <div class="input-group"><label>Día Inicio (Letras, Ej: UNO):</label><input type="text" name="DIA_INICIO" required></div>
+            <div class="input-group"><label>Mes Inicio (Ej: Abril):</label><input type="text" name="MES_INICIO" required></div>
+            <div class="input-group"><label>Año Inicio (Letras, Ej: dos mil veinticuatro):</label><input type="text" name="ANIO_INICIO" required></div>
+            <div class="input-group"><label>Día Final (Letras, Ej: TREINTA Y UNO):</label><input type="text" name="DIA_FINAL" required></div>
+            <div class="input-group"><label>Mes Final (Ej: Mayo):</label><input type="text" name="MES_FINAL" required></div>
+            <div class="input-group"><label>Año Final (Letras, Ej: dos mil veinticuatro):</label><input type="text" name="ANIO_FINAL" required></div>
+        </div>
+
+        <h2>Montos (Renta y Sanción)</h2>
+        <div class="grid">
+            <div class="input-group"><label>Renta (Número, Ej: 1300):</label><input type="text" name="RENTA_NUMERO" required></div>
+            <div class="input-group full-width"><label>Renta (Letras, Ej: UN MIL TRESCIENTOS):</label><input type="text" name="RENTA_NUMERO_LETRAS" required></div>
+            <div class="input-group"><label>Depósito (Número):</label><input type="text" name="DEPOSITO_NUMERO" required></div>
+            <div class="input-group full-width"><label>Depósito (Letras):</label><input type="text" name="DEPOSITO_NUMERO_LETRAS" required></div>
+            <div class="input-group"><label>Sanción Diaria (Número):</label><input type="text" name="SANCION_DIARIA_NUMERO" required></div>
+            <div class="input-group full-width"><label>Sanción Diaria (Letras):</label><input type="text" name="SANCION_DIARIA_LETRAS" required></div>
+        </div>
+        
+        <h2>Lugar y Fecha de Firma</h2>
+        <div class="grid">
+            <div class="input-group full-width"><label>Ciudad de Firma (Ej: Ciudad de la Antigua Guatemala del Departamento de Sacatepéquez):</label><input type="text" name="CIUDAD_FIRMA" required></div>
+            <div class="input-group full-width"><label>Fecha de Firma de Escritura (Ej: uno de Abril del año dos mil veinticuatro):</label><input type="text" name="FECHA_FIRMA_ESCRITURA" required></div>
+            <div class="input-group full-width"><label>Fecha de Legalización (Ej: veinticinco de enero del año dos mil veinticuatro):</label><input type="text" name="FECHA_LEGALIZACION_FIRMA" required></div>
+        </div>
+
+        <button type="submit">Generar Contrato PDF</button>
+
+    </form>
+</div>
+
+</body>
+</html>

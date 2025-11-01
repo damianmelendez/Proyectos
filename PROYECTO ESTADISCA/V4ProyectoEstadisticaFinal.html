@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora Estadística Avanzada</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+        }
+        .container {
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            text-align: center;
+            width: 90%;
+            max-width: 600px;
+        }
+        h1 {
+            color: #333;
+        }
+        .fila-input {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 10px;
+            align-items: center;
+        }
+        .fila-input input {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .fila-input label {
+            flex-shrink: 0;
+            min-width: 130px; /* Alineación de etiquetas */
+            text-align: left;
+        }
+        #tabla-entradas {
+            margin-bottom: 20px;
+        }
+        .controles button {
+            background-color: #28a745;
+            color: white;
+            padding: 8px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-right: 10px;
+        }
+        .btn-eliminar {
+            background-color: #dc3545 !important;
+            padding: 5px 10px !important;
+            font-size: 12px;
+        }
+        button#btn-calcular {
+            background-color: #007BFF;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            width: 100%;
+            margin-top: 15px;
+        }
+        button#btn-calcular:hover {
+            background-color: #0056b3;
+        }
+        #resultado {
+            margin-top: 20px;
+            text-align: left;
+            background-color: #e9ecef;
+            padding: 15px;
+            border-radius: 5px;
+        }
+        #resultado p {
+            margin: 10px 0;
+            font-size: 18px;
+        }
+        #resultado span {
+            font-weight: bold;
+            color: #333;
+        }
+        .input-posicion {
+            margin-top: 10px;
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+        .input-posicion label {
+             flex-shrink: 0;
+             min-width: 180px; /* Alineación de etiquetas */
+             text-align: left;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Calculadora Estadística Avanzada</h1>
+        <p>Añade filas para cada intervalo de clase y su frecuencia.</p>
+
+        <div id="tabla-entradas">
+            <div class="fila-input">
+                <label>Intervalo (ej: 10-20):</label>
+                <input type="text" class="intervalo-input" placeholder="LímiteInferior-LímiteSuperior">
+                <label>Frecuencia:</label>
+                <input type="number" class="frecuencia-input" placeholder="f">
+            </div>
+        </div>
+
+        <div class="controles">
+            <button onclick="agregarFila()">+ Añadir Fila</button>
+        </div>
+        
+        <hr style="margin: 20px 0;">
+
+        <div class="input-posicion">
+             <label for="cuartil-k">Calcular Cuartil (1-3):</label>
+             <input type="number" id="cuartil-k" min="1" max="3" placeholder="Ej: 1 para Q1">
+        </div>
+        <div class="input-posicion">
+             <label for="decil-k">Calcular Decil (1-9):</label>
+             <input type="number" id="decil-k" min="1" max="9" placeholder="Ej: 7 para D7">
+        </div>
+        <div class="input-posicion">
+             <label for="percentil-k">Calcular Percentil (1-99):</label>
+             <input type="number" id="percentil-k" min="1" max="99" placeholder="Ej: 90 para P90">
+        </div>
+
+        <button id="btn-calcular" onclick="procesarDatos()">Calcular</button>
+        
+        <div id="resultado"></div>
+    </div>
+
+    <script>
+        function agregarFila() {
+            const tabla = document.getElementById('tabla-entradas');
+            const primeraFila = tabla.querySelector('.fila-input');
+            const nuevaFila = primeraFila.cloneNode(true);
+
+            nuevaFila.querySelector('.intervalo-input').value = '';
+            nuevaFila.querySelector('.frecuencia-input').value = '';
+
+            const btnEliminar = document.createElement('button');
+            btnEliminar.textContent = 'X';
+            btnEliminar.className = 'btn-eliminar';
+            btnEliminar.onclick = function() {
+                this.parentElement.remove();
+            };
+            nuevaFila.appendChild(btnEliminar);
+            
+            tabla.appendChild(nuevaFila);
+        }
+
+        function procesarDatos() {
+            const filas = document.querySelectorAll('#tabla-entradas .fila-input');
+            let datosClases = [];
+            let frecuenciaAcumulada = 0;
+            let esValido = true;
+
+            filas.forEach((fila) => {
+                const intervaloStr = fila.querySelector('.intervalo-input').value;
+                const frecuencia = parseFloat(fila.querySelector('.frecuencia-input').value);
+
+                if (!intervaloStr || isNaN(frecuencia) || frecuencia < 0) {
+                    esValido = false; return;
+                }
+
+                const limites = intervaloStr.split('-').map(n => parseFloat(n.trim()));
+                if (limites.length !== 2 || isNaN(limites[0]) || isNaN(limites[1]) || limites[0] >= limites[1]) {
+                    esValido = false; return;
+                }
+
+                const [limiteInferior, limiteSuperior] = limites;
+                frecuenciaAcumulada += frecuencia;
+
+                datosClases.push({
+                    intervalo: `${limiteInferior}-${limiteSuperior}`,
+                    limiteInferior,
+                    limiteSuperior,
+                    frecuencia,
+                    marcaClase: (limiteInferior + limiteSuperior) / 2,
+                    frecuenciaAcumulada: frecuenciaAcumulada
+                });
+            });
+
+            if (!esValido || datosClases.length === 0) {
+                alert("Por favor, revisa los datos. Asegúrate de que todos los campos estén completos y sean correctos.");
+                return;
+            }
+
+            const totalDatos = frecuenciaAcumulada;
+            const media = calcularMedia(datosClases, totalDatos);
+            const mediana = calcularMediana(datosClases, totalDatos);
+            const moda = calcularModa(datosClases, totalDatos);
+            const mediaArmonica = calcularMediaArmonica(datosClases, totalDatos);
+            const mediaGeometrica = calcularMediaGeometrica(datosClases, totalDatos);
+            const mediaCuadratica = calcularMediaCuadratica(datosClases, totalDatos);
+            
+            const cuartil_num = parseInt(document.getElementById('cuartil-k').value);
+            const decil_num = parseInt(document.getElementById('decil-k').value);
+            const percentil_num = parseInt(document.getElementById('percentil-k').value);
+
+            let resultadoCuartil = "N/A";
+            if (!isNaN(cuartil_num) && cuartil_num >= 1 && cuartil_num <= 3) {
+                resultadoCuartil = calcularMedidaDePosicion(datosClases, totalDatos, cuartil_num * 25).toFixed(2);
+            }
+
+            let resultadoDecil = "N/A";
+            if (!isNaN(decil_num) && decil_num >= 1 && decil_num <= 9) {
+                resultadoDecil = calcularMedidaDePosicion(datosClases, totalDatos, decil_num * 10).toFixed(2);
+            }
+
+            let resultadoPercentil = "N/A";
+            if (!isNaN(percentil_num) && percentil_num >= 1 && percentil_num <= 99) {
+                resultadoPercentil = calcularMedidaDePosicion(datosClases, totalDatos, percentil_num).toFixed(2);
+            }
+
+            const divResultado = document.getElementById('resultado');
+            // SECCIÓN DE RESULTADOS MODIFICADA
+            divResultado.innerHTML = `
+                <p>N (Total de datos): <span>${totalDatos}</span></p>
+                <hr>
+                <h4>Promedios</h4>
+                <p>➕ Media Aritmética: <span>${media.toFixed(2)}</span></p>
+                <p>⚙️ Media Armónica: <span>${mediaArmonica}</span></p>
+                <p>🌿 Media Geométrica: <span>${mediaGeometrica}</span></p>
+                <p>🔲 Media Cuadrática (RMS): <span>${mediaCuadratica.toFixed(2)}</span></p>
+                <hr>
+                <h4>Medidas de Tendencia Central</h4>
+                <p>📊 Mediana (Q2): <span>${mediana.toFixed(2)}</span></p>
+                <p>🔄 Moda: <span>${moda}</span></p>
+                <hr>
+                <h4>Medidas de Posición Personalizadas</h4>
+                <p>🔵 Cuartil ${cuartil_num || ''}: <span>${resultadoCuartil}</span></p>
+                <p>🔵 Decil ${decil_num || ''}: <span>${resultadoDecil}</span></p>
+                <p>🔵 Percentil ${percentil_num || ''}: <span>${resultadoPercentil}</span></p>
+            `;
+        }
+
+        // --- FUNCIONES DE CÁLCULO ---
+
+        function calcularMedia(datos, totalDatos) {
+            const sumaPonderada = datos.reduce((acc, clase) => acc + (clase.frecuencia * clase.marcaClase), 0);
+            return sumaPonderada / totalDatos;
+        }
+
+        function calcularMediana(datos, totalDatos) {
+            return calcularMedidaDePosicion(datos, totalDatos, 50);
+        }
+
+        function calcularModa(datos, totalDatos) {
+            if (datos.length === 0) return "N/A";
+            const posicion = totalDatos / 2;
+            const claseDeCalculo = datos.find(clase => clase.frecuenciaAcumulada >= posicion);
+            if (!claseDeCalculo) return "No se pudo encontrar la clase";
+            const indexClase = datos.indexOf(claseDeCalculo);
+            const Li = claseDeCalculo.limiteInferior - 0.5;
+            const fm = claseDeCalculo.frecuencia;
+            const fa = (indexClase === 0) ? 0 : datos[indexClase - 1].frecuencia;
+            const fs = (indexClase === datos.length - 1) ? 0 : datos[indexClase + 1].frecuencia;
+            const c = claseDeCalculo.limiteSuperior - claseDeCalculo.limiteInferior;
+            const d1 = fm - fa;
+            const d2 = fm - fs;
+            if ((d1 + d2) === 0) return "No se puede calcular (división por cero)";
+            const moda = Li + (d1 / (d1 + d2)) * c;
+            return moda.toFixed(2);
+        }
+
+        function calcularMediaArmonica(datos, totalDatos) {
+            const sumaInversosPonderada = datos.reduce((acc, clase) => {
+                if (clase.marcaClase === 0) return acc;
+                return acc + (clase.frecuencia / clase.marcaClase);
+            }, 0);
+            if (sumaInversosPonderada === 0) return "No se puede calcular (división por cero)";
+            return (totalDatos / sumaInversosPonderada).toFixed(2);
+        }
+
+        function calcularMediaGeometrica(datos, totalDatos) {
+            const sumaLogPonderada = datos.reduce((acc, clase) => {
+                if (clase.marcaClase <= 0) return NaN;
+                return acc + (clase.frecuencia * Math.log10(clase.marcaClase));
+            }, 0);
+            if (isNaN(sumaLogPonderada)) {
+                return "No se puede calcular (marcas de clase deben ser > 0)";
+            }
+            const logMedia = sumaLogPonderada / totalDatos;
+            return Math.pow(10, logMedia).toFixed(2);
+        }
+
+        function calcularMediaCuadratica(datos, totalDatos) {
+            const sumaCuadradosPonderada = datos.reduce((acc, clase) => acc + (clase.frecuencia * Math.pow(clase.marcaClase, 2)), 0);
+            return Math.sqrt(sumaCuadradosPonderada / totalDatos);
+        }
+        
+        function calcularMedidaDePosicion(datos, totalDatos, k) {
+            const posicion = (k * totalDatos) / 100;
+            const clasePosicional = datos.find(clase => clase.frecuenciaAcumulada >= posicion);
+            if (!clasePosicional) return 0;
+            const indexClase = datos.indexOf(clasePosicional);
+            const Li = clasePosicional.limiteInferior - 0.5;
+            const Fa_anterior = indexClase === 0 ? 0 : datos[indexClase - 1].frecuenciaAcumulada;
+            const f = clasePosicional.frecuencia;
+            const A = clasePosicional.limiteSuperior - clasePosicional.limiteInferior;
+            if (f === 0) return Li;
+            return Li + ((posicion - Fa_anterior) / f) * A;
+        }
+    </script>
+</body>
+</html>

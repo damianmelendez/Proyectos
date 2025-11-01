@@ -3,164 +3,182 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Calculadora Estadística</title>
+    <title>Proyecto Final de Estadística - UMG</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    
     <style>
-        /* Estilos básicos para la página */
+        /* Usamos la fuente que importamos de Google Fonts */
         body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
-            margin: 0;
-            padding: 20px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
+            font-family: 'Poppins', sans-serif;
+            background-color: #f8f9fa; /* Un color de fondo suave */
         }
-        .container {
-            background-color: white;
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-            text-align: center;
-            width: 90%;
-            max-width: 500px;
-        }
-        h1 {
-            color: #333;
-        }
-        input[type="text"] {
-            width: calc(100% - 22px);
-            padding: 10px;
-            margin-bottom: 20px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-        }
-        button {
-            background-color: #007BFF;
+
+        /* Estilos para la sección principal (Hero) */
+        .hero {
+            background: linear-gradient(rgba(1, 33, 70, 0.7), rgba(1, 33, 70, 0.7)), url('https://images.pexels.com/photos/3184418/pexels-photo-3184418.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1');
+            background-size: cover;
+            background-position: center;
             color: white;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 16px;
+            padding: 100px 0;
+            text-align: center;
         }
-        button:hover {
-            background-color: #0056b3;
+
+        .hero h1 {
+            font-weight: 700; /* Letra más gruesa para el título */
+            font-size: 3.5rem; /* Tamaño grande para el título */
         }
-        #resultado {
-            margin-top: 20px;
-            text-align: left;
-            background-color: #e9ecef;
-            padding: 15px;
-            border-radius: 5px;
+        
+        .hero p {
+            font-size: 1.25rem;
+            font-weight: 300; /* Letra más ligera para el subtítulo */
         }
-        #resultado p {
-            margin: 10px 0;
-            font-size: 18px;
+
+        /* Estilo para el botón principal */
+        .btn-custom {
+            background-color: #0056b3; /* Color azul institucional de la UMG */
+            border-color: #0056b3;
+            color: white;
+            padding: 12px 30px;
+            font-weight: 600;
+            border-radius: 50px; /* Bordes redondeados */
+            transition: all 0.3s ease; /* Una suave animación al pasar el mouse */
         }
-        #resultado span {
-            font-weight: bold;
-            color: #333;
+
+        .btn-custom:hover {
+            background-color: #00418a;
+            border-color: #00418a;
+            transform: translateY(-3px); /* Efecto de "levantamiento" */
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+
+        /* Estilos generales para las secciones */
+        .section {
+            padding: 60px 0;
+        }
+
+        /* Estilos para el carrusel de imágenes */
+        .carousel-item img {
+            height: 400px;
+            object-fit: cover; /* Asegura que la imagen cubra el espacio sin deformarse */
+            border-radius: 15px; /* Bordes redondeados para las imágenes */
+        }
+        
+        .carousel-caption {
+            background-color: rgba(0, 0, 0, 0.5); /* Fondo semitransparente para el texto */
+            border-radius: 10px;
+        }
+
+        /* Estilos para el pie de página */
+        footer {
+            background-color: #012146; /* El color azul oscuro de la UMG */
+            color: white;
+        }
+
+        .umg-logo {
+            max-width: 120px; /* Tamaño del logo */
         }
     </style>
 </head>
 <body>
 
-    <div class="container">
-        <h1>Calculadora de Media, Mediana y Moda</h1>
-        <p>Ingresa los números separados por comas (ej: 1, 2, 3, 4, 5)</p>
-        
-        <input type="text" id="numerosInput" placeholder="Escribe los números aquí...">
-        
-        <button onclick="calcularTodo()">Calcular</button>
-        
-        <div id="resultado"></div>
-    </div>
+    <header class="bg-light shadow-sm py-3">
+        <div class="container d-flex justify-content-between align-items-center">
+            <img src="https://umg.edu.gt/img/Umg.png" alt="Logo UMG" class="umg-logo">
+            <h4 class="text-secondary mb-0">Facultad de Ingeniería en Sistemas</h4>
+        </div>
+    </header>
 
-    <script>
-        // Esta es la lógica que hace los cálculos
+    <main>
+        <section class="hero">
+            <div class="container">
+                <h1 class="display-4">Proyecto Final de Estadística</h1>
+                <p class="lead mb-4">Un análisis interactivo de datos.</p>
+                <a href="V4ProyectoEstadisticaFinal.html" class="btn btn-custom btn-lg">
+                    Ver Proyecto
+                </a>
+            </div>
+        </section>
 
-        function calcularTodo() {
-            // 1. OBTENER Y LIMPIAR LOS DATOS DE ENTRADA
-            const stringNumeros = document.getElementById('numerosInput').value;
-            
-            // Convertir el string en un array de números
-            const arrayNumeros = stringNumeros.split(',')    // Separa por comas
-                                            .map(item => parseFloat(item.trim())) // Convierte cada parte a número
-                                            .filter(item => !isNaN(item)); // Elimina cualquier cosa que no sea un número
+        <section id="about" class="section">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-md-6">
+                        <h2 class="mb-3">¿De qué trata este proyecto?</h2>
+                        <p class="text-muted">
+                            Este proyecto es el resultado del curso de Estadística, donde se aplican conceptos clave
+                            para analizar un conjunto de datos del mundo real. A través de visualizaciones interactivas
+                            y un análisis detallado, exploramos patrones y obtenemos conclusiones significativas.
+                        </p>
+                        <p class="text-muted">
+                            Haz clic en el botón "Ver Proyecto" para sumergirte en los datos y descubrir los hallazgos.
+                        </p>
+                    </div>
+                    <div class="col-md-6 text-center">
+                        <img src="https://images.pexels.com/photos/669615/pexels-photo-669615.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" class="img-fluid rounded shadow" alt="Gráficos y Datos">
+                    </div>
+                </div>
+            </div>
+        </section>
 
-            if (arrayNumeros.length === 0) {
-                alert("Por favor, ingresa números válidos.");
-                return;
-            }
+        <section id="carousel-section" class="section bg-light">
+            <div class="container">
+                <h2 class="text-center mb-4">Galería del Proyecto</h2>
+                <div id="projectCarousel" class="carousel slide" data-bs-ride="carousel">
+                    <div class="carousel-indicators">
+                        <button type="button" data-bs-target="#projectCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                        <button type="button" data-bs-target="#projectCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                        <button type="button" data-bs-target="#projectCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
+                    </div>
+                    <div class="carousel-inner">
+                        <div class="carousel-item active">
+                            <img src="https://images.pexels.com/photos/590022/pexels-photo-590022.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" class="d-block w-100" alt="Análisis de datos">
+                            <div class="carousel-caption d-none d-md-block">
+                                <h5>Análisis Profundo</h5>
+                                <p>Utilizamos herramientas modernas para el análisis de datos.</p>
+                            </div>
+                        </div>
+                        <div class="carousel-item">
+                            <img src="https://images.pexels.com/photos/1181373/pexels-photo-1181373.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" class="d-block w-100" alt="Código y programación">
+                            <div class="carousel-caption d-none d-md-block">
+                                <h5>Desarrollo y Programación</h5>
+                                <p>El proyecto fue construido con código limpio y eficiente.</p>
+                            </div>
+                        </div>
+                        <div class="carousel-item">
+                            <img src="https://images.pexels.com/photos/1105766/pexels-photo-1105766.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" class="d-block w-100" alt="Campus UMG">
+                            <div class="carousel-caption d-none d-md-block">
+                                <h5>Hecho en la UMG</h5>
+                                <p>Un proyecto de la Universidad Mariano Gálvez de Guatemala.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="carousel-control-prev" type="button" data-bs-target="#projectCarousel" data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Anterior</span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#projectCarousel" data-bs-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Siguiente</span>
+                    </button>
+                </div>
+            </div>
+        </section>
+    </main>
 
-            // Ordenar los números de menor a mayor (necesario para la mediana)
-            arrayNumeros.sort((a, b) => a - b);
+    <footer class="text-center py-4">
+        <div class="container">
+            <p class="mb-0">&copy; 2025 -</p>
+            <p>Julio Damian Melendez Xia 2294-24-548</p>
+            <p class="mb-0">Universidad Mariano Gálvez de Guatemala</p>
+        </div>
+    </footer>
 
-            // 2. REALIZAR LOS CÁLCULOS
-            const media = calcularMedia(arrayNumeros);
-            const mediana = calcularMediana(arrayNumeros);
-            const moda = calcularModa(arrayNumeros);
-
-            // 3. MOSTRAR LOS RESULTADOS EN LA PÁGINA
-            const divResultado = document.getElementById('resultado');
-            divResultado.innerHTML = `
-                <p>🔢 Números ordenados: <span>${arrayNumeros.join(', ')}</span></p>
-                <hr>
-                <p>➕ Media Aritmética: <span>${media.toFixed(2)}</span></p>
-                <p>📊 Mediana: <span>${mediana}</span></p>
-                <p>🔄 Moda: <span>${moda}</span></p>
-            `;
-        }
-
-        // Función para calcular la Media Aritmética
-        function calcularMedia(numeros) {
-            const suma = numeros.reduce((acumulador, valorActual) => acumulador + valorActual, 0);
-            return suma / numeros.length;
-        }
-
-        // Función para calcular la Mediana
-        function calcularMediana(numeros) {
-            const mitad = Math.floor(numeros.length / 2);
-            
-            // Si la cantidad de números es impar, la mediana es el número del medio
-            if (numeros.length % 2 !== 0) {
-                return numeros[mitad];
-            } else {
-                // Si es par, es el promedio de los dos números del medio
-                return (numeros[mitad - 1] + numeros[mitad]) / 2.0;
-            }
-        }
-
-        // Función para calcular la Moda
-        function calcularModa(numeros) {
-            const frecuencia = {};
-            let maxFrecuencia = 0;
-            let modas = [];
-
-            // Contar la frecuencia de cada número
-            numeros.forEach(numero => {
-                frecuencia[numero] = (frecuencia[numero] || 0) + 1;
-                if (frecuencia[numero] > maxFrecuencia) {
-                    maxFrecuencia = frecuencia[numero];
-                }
-            });
-
-            // Si todos los números aparecen la misma cantidad de veces, no hay moda.
-            if (maxFrecuencia === 1) {
-                return "No hay moda (todos los números aparecen una vez)";
-            }
-
-            // Encontrar todos los números que tienen la máxima frecuencia
-            for (const numero in frecuencia) {
-                if (frecuencia[numero] === maxFrecuencia) {
-                    modas.push(Number(numero));
-                }
-            }
-            
-            return modas.join(', ');
-        }
-    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
 </body>
 </html>

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Calculadora para Datos Agrupados</title>
+    <title>Calculadora Estadística Avanzada</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -12,8 +12,7 @@
             padding: 20px;
             display: flex;
             justify-content: center;
-            align-items: flex-start; /* Alineado arriba */
-            min-height: 100vh;
+            align-items: flex-start;
         }
         .container {
             background-color: white;
@@ -40,7 +39,9 @@
             border-radius: 5px;
         }
         .fila-input label {
-            flex-shrink: 0; /* Evita que las etiquetas se encojan */
+            flex-shrink: 0;
+            min-width: 130px; /* Alineación de etiquetas */
+            text-align: left;
         }
         #tabla-entradas {
             margin-bottom: 20px;
@@ -68,6 +69,7 @@
             cursor: pointer;
             font-size: 16px;
             width: 100%;
+            margin-top: 15px;
         }
         button#btn-calcular:hover {
             background-color: #0056b3;
@@ -87,12 +89,23 @@
             font-weight: bold;
             color: #333;
         }
+        .input-posicion {
+            margin-top: 10px;
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+        .input-posicion label {
+             flex-shrink: 0;
+             min-width: 180px; /* Alineación de etiquetas */
+             text-align: left;
+        }
     </style>
 </head>
 <body>
 
     <div class="container">
-        <h1>Calculadora para Datos Agrupados</h1>
+        <h1>Calculadora Estadística Avanzada</h1>
         <p>Añade filas para cada intervalo de clase y su frecuencia.</p>
 
         <div id="tabla-entradas">
@@ -110,6 +123,19 @@
         
         <hr style="margin: 20px 0;">
 
+        <div class="input-posicion">
+             <label for="cuartil-k">Calcular Cuartil (1-3):</label>
+             <input type="number" id="cuartil-k" min="1" max="3" placeholder="Ej: 1 para Q1">
+        </div>
+        <div class="input-posicion">
+             <label for="decil-k">Calcular Decil (1-9):</label>
+             <input type="number" id="decil-k" min="1" max="9" placeholder="Ej: 7 para D7">
+        </div>
+        <div class="input-posicion">
+             <label for="percentil-k">Calcular Percentil (1-99):</label>
+             <input type="number" id="percentil-k" min="1" max="99" placeholder="Ej: 90 para P90">
+        </div>
+
         <button id="btn-calcular" onclick="procesarDatos()">Calcular</button>
         
         <div id="resultado"></div>
@@ -119,13 +145,11 @@
         function agregarFila() {
             const tabla = document.getElementById('tabla-entradas');
             const primeraFila = tabla.querySelector('.fila-input');
-            const nuevaFila = primeraFila.cloneNode(true); // Clonar la fila
+            const nuevaFila = primeraFila.cloneNode(true);
 
-            // Limpiar los valores de la nueva fila
             nuevaFila.querySelector('.intervalo-input').value = '';
             nuevaFila.querySelector('.frecuencia-input').value = '';
 
-            // Añadir botón de eliminar
             const btnEliminar = document.createElement('button');
             btnEliminar.textContent = 'X';
             btnEliminar.className = 'btn-eliminar';
@@ -143,19 +167,17 @@
             let frecuenciaAcumulada = 0;
             let esValido = true;
 
-            filas.forEach((fila, index) => {
+            filas.forEach((fila) => {
                 const intervaloStr = fila.querySelector('.intervalo-input').value;
                 const frecuencia = parseFloat(fila.querySelector('.frecuencia-input').value);
 
                 if (!intervaloStr || isNaN(frecuencia) || frecuencia < 0) {
-                    esValido = false;
-                    return;
+                    esValido = false; return;
                 }
 
                 const limites = intervaloStr.split('-').map(n => parseFloat(n.trim()));
                 if (limites.length !== 2 || isNaN(limites[0]) || isNaN(limites[1]) || limites[0] >= limites[1]) {
-                    esValido = false;
-                    return;
+                    esValido = false; return;
                 }
 
                 const [limiteInferior, limiteSuperior] = limites;
@@ -166,7 +188,7 @@
                     limiteInferior,
                     limiteSuperior,
                     frecuencia,
-                    marcaClase: (limiteInferior + limiteSuperior) / 2, // Punto medio
+                    marcaClase: (limiteInferior + limiteSuperior) / 2,
                     frecuenciaAcumulada: frecuenciaAcumulada
                 });
             });
@@ -176,73 +198,134 @@
                 return;
             }
 
-            // Calcular y mostrar resultados
+            // --- Realizar cálculos principales ---
             const totalDatos = frecuenciaAcumulada;
             const media = calcularMedia(datosClases, totalDatos);
             const mediana = calcularMediana(datosClases, totalDatos);
             const moda = calcularModa(datosClases);
+            const mediaArmonica = calcularMediaArmonica(datosClases, totalDatos);
+            const mediaGeometrica = calcularMediaGeometrica(datosClases, totalDatos);
+            const mediaCuadratica = calcularMediaCuadratica(datosClases, totalDatos);
+            const q1 = calcularMedidaDePosicion(datosClases, totalDatos, 25);
+            const q3 = calcularMedidaDePosicion(datosClases, totalDatos, 75);
 
+            // --- NUEVO: Leer y calcular las medidas de posición personalizadas ---
+            const cuartil_num = parseInt(document.getElementById('cuartil-k').value);
+            const decil_num = parseInt(document.getElementById('decil-k').value);
+            const percentil_num = parseInt(document.getElementById('percentil-k').value);
+
+            let resultadoCuartil = "N/A";
+            if (!isNaN(cuartil_num) && cuartil_num >= 1 && cuartil_num <= 3) {
+                const k = cuartil_num * 25; // Convertir número de cuartil a percentil
+                resultadoCuartil = calcularMedidaDePosicion(datosClases, totalDatos, k).toFixed(2);
+            }
+
+            let resultadoDecil = "N/A";
+            if (!isNaN(decil_num) && decil_num >= 1 && decil_num <= 9) {
+                const k = decil_num * 10; // Convertir número de decil a percentil
+                resultadoDecil = calcularMedidaDePosicion(datosClases, totalDatos, k).toFixed(2);
+            }
+
+            let resultadoPercentil = "N/A";
+            if (!isNaN(percentil_num) && percentil_num >= 1 && percentil_num <= 99) {
+                resultadoPercentil = calcularMedidaDePosicion(datosClases, totalDatos, percentil_num).toFixed(2);
+            }
+
+            // --- Mostrar resultados en pantalla ---
             const divResultado = document.getElementById('resultado');
             divResultado.innerHTML = `
                 <p>N (Total de datos): <span>${totalDatos}</span></p>
                 <hr>
+                <h4>Promedios</h4>
                 <p>➕ Media Aritmética: <span>${media.toFixed(2)}</span></p>
-                <p>📊 Mediana: <span>${mediana.toFixed(2)}</span></p>
+                <p>⚙️ Media Armónica: <span>${mediaArmonica}</span></p>
+                <p>🌿 Media Geométrica: <span>${mediaGeometrica}</span></p>
+                <p>🔲 Media Cuadrática (RMS): <span>${mediaCuadratica.toFixed(2)}</span></p>
+                <hr>
+                <h4>Medidas de Tendencia Central</h4>
+                <p>📊 Mediana (Q2): <span>${mediana.toFixed(2)}</span></p>
                 <p>🔄 Moda: <span>${moda}</span></p>
+                <hr>
+                <h4>Medidas de Posición Fijas</h4>
+                <p>⚫ Cuartil 1 (P25): <span>${q1.toFixed(2)}</span></p>
+                <p>⚫ Cuartil 3 (P75): <span>${q3.toFixed(2)}</span></p>
+                <hr>
+                <h4>Medidas de Posición Personalizadas</h4>
+                <p>🔵 Cuartil ${cuartil_num || ''}: <span>${resultadoCuartil}</span></p>
+                <p>🔵 Decil ${decil_num || ''}: <span>${resultadoDecil}</span></p>
+                <p>🔵 Percentil ${percentil_num || ''}: <span>${resultadoPercentil}</span></p>
             `;
         }
 
-        // --- FUNCIONES DE CÁLCULO PARA DATOS AGRUPADOS ---
+        // --- FUNCIONES DE CÁLCULO ---
 
-        // Calcular la Media: Σ(f * Mc) / N
         function calcularMedia(datos, totalDatos) {
             const sumaPonderada = datos.reduce((acc, clase) => acc + (clase.frecuencia * clase.marcaClase), 0);
             return sumaPonderada / totalDatos;
         }
 
-        // Calcular la Mediana: Li + [ (N/2 - Fa-1) / f ] * A
         function calcularMediana(datos, totalDatos) {
-            const posicion = totalDatos / 2;
-            const claseMediana = datos.find(clase => clase.frecuenciaAcumulada >= posicion);
-            const indexClaseMediana = datos.indexOf(claseMediana);
-            
-            const Li = claseMediana.limiteInferior;
-            const Fa_anterior = indexClaseMediana === 0 ? 0 : datos[indexClaseMediana - 1].frecuenciaAcumulada;
-            const f = claseMediana.frecuencia;
-            const A = claseMediana.limiteSuperior - claseMediana.limiteInferior;
-
-            return Li + ((posicion - Fa_anterior) / f) * A;
+            return calcularMedidaDePosicion(datos, totalDatos, 50); // La mediana es el Percentil 50
         }
 
-        // Calcular la Moda: Li + [ (d1) / (d1 + d2) ] * A
         function calcularModa(datos) {
             if (datos.length === 0) return "N/A";
-
-            // Encontrar la clase con la frecuencia más alta (clase modal)
             const claseModal = datos.reduce((prev, current) => (prev.frecuencia > current.frecuencia) ? prev : current);
             const indexClaseModal = datos.indexOf(claseModal);
-
-            // Verificar si todas las frecuencias son iguales (no hay moda)
             const todasFrecuenciasIguales = datos.every(clase => clase.frecuencia === claseModal.frecuencia);
             if (todasFrecuenciasIguales && datos.length > 1) {
                 return "No hay moda (frecuencias iguales)";
             }
-            
             const Li = claseModal.limiteInferior;
             const f_modal = claseModal.frecuencia;
             const f_anterior = (indexClaseModal === 0) ? 0 : datos[indexClaseModal - 1].frecuencia;
             const f_siguiente = (indexClaseModal === datos.length - 1) ? 0 : datos[indexClaseModal + 1].frecuencia;
             const A = claseModal.limiteSuperior - claseModal.limiteInferior;
-
             const d1 = f_modal - f_anterior;
             const d2 = f_modal - f_siguiente;
-            
-            if ((d1 + d2) === 0) return "No se puede calcular (división por cero)";
-
+            if ((d1 + d2) === 0) return "No se puede calcular";
             const moda = Li + (d1 / (d1 + d2)) * A;
             return moda.toFixed(2);
         }
-    </script>
 
+        function calcularMediaArmonica(datos, totalDatos) {
+            const sumaInversosPonderada = datos.reduce((acc, clase) => {
+                if (clase.marcaClase === 0) return acc;
+                return acc + (clase.frecuencia / clase.marcaClase);
+            }, 0);
+            if (sumaInversosPonderada === 0) return "No se puede calcular (división por cero)";
+            return (totalDatos / sumaInversosPonderada).toFixed(2);
+        }
+
+        function calcularMediaGeometrica(datos, totalDatos) {
+            const sumaLogPonderada = datos.reduce((acc, clase) => {
+                if (clase.marcaClase <= 0) return NaN;
+                return acc + (clase.frecuencia * Math.log10(clase.marcaClase));
+            }, 0);
+            if (isNaN(sumaLogPonderada)) {
+                return "No se puede calcular (marcas de clase deben ser > 0)";
+            }
+            const logMedia = sumaLogPonderada / totalDatos;
+            return Math.pow(10, logMedia).toFixed(2);
+        }
+
+        function calcularMediaCuadratica(datos, totalDatos) {
+            const sumaCuadradosPonderada = datos.reduce((acc, clase) => acc + (clase.frecuencia * Math.pow(clase.marcaClase, 2)), 0);
+            return Math.sqrt(sumaCuadradosPonderada / totalDatos);
+        }
+
+        function calcularMedidaDePosicion(datos, totalDatos, k) {
+            const posicion = (k * totalDatos) / 100;
+            const clasePosicional = datos.find(clase => clase.frecuenciaAcumulada >= posicion);
+            if (!clasePosicional) return 0;
+            const indexClase = datos.indexOf(clasePosicional);
+            const Li = clasePosicional.limiteInferior;
+            const Fa_anterior = indexClase === 0 ? 0 : datos[indexClase - 1].frecuenciaAcumulada;
+            const f = clasePosicional.frecuencia;
+            const A = clasePosicional.limiteSuperior - clasePosicional.limiteInferior;
+            if (f === 0) return Li;
+            return Li + ((posicion - Fa_anterior) / f) * A;
+        }
+    </script>
 </body>
 </html>
