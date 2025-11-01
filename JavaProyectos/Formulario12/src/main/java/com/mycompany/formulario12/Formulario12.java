@@ -4,6 +4,8 @@
 
 package com.mycompany.formulario12;
 
+import Pantallas.JCliente;
+
 /**
  *
  * @author DELL
