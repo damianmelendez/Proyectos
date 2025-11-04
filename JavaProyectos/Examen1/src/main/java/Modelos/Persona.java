@@ -8,6 +8,46 @@ package Modelos;
  *
  * @author DELL
  */
-public class Persona {
+public abstract class Persona {
+    private String Nombre;
+    private String Apellido;
+    private boolean Genero;
+
+    public Persona() {
+    }
+
+    public Persona(String Nombre, String Apellido, boolean Genero) {
+        this.Nombre = Nombre;
+        this.Apellido = Apellido;
+        this.Genero = Genero;
+    }
+
     
+    public String getNombre() {
+        return Nombre;
+    }
+
+    public void setNombre(String Nombre) {
+        this.Nombre = Nombre;
+    }
+
+    public String getApellido() {
+        return Apellido;
+    }
+
+    public void setApellido(String Apellido) {
+        this.Apellido = Apellido;
+    }
+
+    public boolean isGenero() {
+        return Genero;
+    }
+
+    public void setGenero(boolean Genero) {
+        this.Genero = Genero;
+    }
+    
+    public abstract String darNombreCompleto();
+    
+    public abstract Boolean darGenero();
 }
