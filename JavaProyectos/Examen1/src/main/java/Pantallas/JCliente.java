@@ -188,7 +188,6 @@ public class JCliente extends javax.swing.JFrame {
         // TODO add your handling code here:
         if (VentanaPrincipal != null) {
             VentanaPrincipal.setVisible(true);
-        } else {
         }
     }//GEN-LAST:event_formWindowClosed
 
