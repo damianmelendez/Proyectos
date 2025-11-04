@@ -2,20 +2,15 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  */
 
-package com.mycompany.formulario12;
-
-import Pantallas.JCliente;
-import Pantallas.JClientes;
+package com.mycompany.examen1;
 
 /**
  *
  * @author DELL
  */
-public class Formulario12 {
+public class Examen1 {
 
     public static void main(String[] args) {
         System.out.println("Hello World!");
-        JClientes J = new JClientes();
-        J.setVisible(true);
     }
 }
