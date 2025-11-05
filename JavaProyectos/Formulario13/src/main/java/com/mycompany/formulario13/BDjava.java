@@ -51,26 +51,4 @@ public class BDjava {
             e.printStackTrace();
         }
     }
-
-    /**
-     * Este es un método main para probar la conexión rápidamente.
-     * Puedes ejecutar este archivo para ver si se conecta.
-     */
-    public static void main(String[] args) {
-        
-        System.out.println("--- Probando Conexión ---");
-        
-        // 1. Intenta conectar
-        conectar();
-        
-        // 2. Pequeña pausa
-        try {
-            Thread.sleep(1000); // Espera 1 segundo
-        } catch (InterruptedException e) {}
-        
-        // 3. Intenta desconectar
-        desconectar();
-        
-        System.out.println("--- Fin de la Prueba ---");
-    }
 }
