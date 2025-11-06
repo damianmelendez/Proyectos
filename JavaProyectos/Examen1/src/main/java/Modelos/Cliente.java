@@ -30,8 +30,12 @@ public class Cliente extends Persona {
 
     public Cliente() {
     }
-    
 
+    public Cliente(String Nit, String Nombres, String Apellidos) {
+        super(Nit, Nombres, false);
+        this.Nit = Nit;
+    }
+    
     public Cliente(String Nit, String Direccion) {
         this.Nit = Nit;
         this.Direccion = Direccion;
