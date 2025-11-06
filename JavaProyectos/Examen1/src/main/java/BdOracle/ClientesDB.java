@@ -68,8 +68,83 @@ public class ClientesDB {
     return resultado;
     }
     
-    public boolean insertarDatos(){
-    return false;
+    public boolean insertarDatos(Cliente Cliente){
+        try {
+            String query = "INSERT INTO TELCLIENTE(NIT, NOMBRES, APELLIDOS, GENERO, DIRECCION) VALUES(?, ?, ?, ?, ?)";
+            PreparedStatement stmt  = BD.conectar().prepareStatement(query);
+            stmt.setString(1, Cliente.getNit());
+            stmt.setString(2, Cliente.getNombre());
+            stmt.setString(3, Cliente.getApellido());
+            stmt.setBoolean(4, Cliente.isGenero());
+            stmt.setString(5, Cliente.getDireccion());
+            
+            stmt.executeQuery();
+            
+            stmt.close();
+            BD.desconectar();
+            return true;
+        } catch (Exception e) {
+            try {
+                System.out.println("error query"+ e.getMessage());
+                e.printStackTrace();
+                BD.desconectar();
+            } catch (Exception e1) {
+                System.out.println("error cierre"+ e1.getMessage());
+            }
+            return false;
+        }
     }
     
+    public boolean actualizarCliente(Cliente Cliente, String nitAnterior){
+        try {
+            String query = "UPDATE TELCLIENTE SET NIT = ?, NOMBRES = ?, APELLIDOS = ?, GENERO = ?, DIRECCION = ? WHERE NIT = ?";
+            
+            PreparedStatement stmt = BD.conectar().prepareStatement(query);
+            stmt.setString(1, Cliente.getNit());
+            stmt.setString(2, Cliente.getNombre());
+            stmt.setString(3, Cliente.getApellido());
+            stmt.setBoolean(4, Cliente.isGenero());
+            stmt.setString(5, Cliente.getDireccion());
+            stmt.setString(6, nitAnterior);
+            
+            stmt.executeQuery();
+            BD.desconectar();
+            return true;
+            
+        } catch (Exception e) {
+            try {
+                System.out.println("error query"+e.getMessage());
+                e.printStackTrace();
+                BD.desconectar();
+            } catch (Exception e1) {
+                System.out.println("error cliente"+e1.getMessage());
+            }
+                return false;
+        }
+    }
+    
+    public int eliminarCliente(String nit){
+        try {
+            String query = "DELATE TELCLIENTE WHERE NIT = ?";
+            
+            PreparedStatement stmt = BD.conectar().prepareStatement(query);
+            stmt.setString(1, nit);
+            
+            int cantidad = stmt.executeUpdate();
+            
+            stmt.close();
+            BD.desconectar();
+            return cantidad;
+            
+        } catch (Exception e) {
+            try {
+                System.out.println("error query"+e.getLocalizedMessage());
+                e.printStackTrace();
+                BD.desconectar();
+            } catch (Exception e1) {
+                System.out.println("error cliente "+e1.getMessage());
+            }
+            return -1;
+        }
+    }
 }
