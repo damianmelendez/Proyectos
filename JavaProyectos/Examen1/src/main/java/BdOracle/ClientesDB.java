@@ -78,7 +78,7 @@ public class ClientesDB {
             stmt.setBoolean(4, Cliente.isGenero());
             stmt.setString(5, Cliente.getDireccion());
             
-            stmt.executeQuery();
+            stmt.executeUpdate();
             
             stmt.close();
             BD.desconectar();
@@ -107,7 +107,7 @@ public class ClientesDB {
             stmt.setString(5, Cliente.getDireccion());
             stmt.setString(6, nitAnterior);
             
-            stmt.executeQuery();
+            stmt.executeUpdate();
             BD.desconectar();
             return true;
             
@@ -125,7 +125,7 @@ public class ClientesDB {
     
     public int eliminarCliente(String nit){
         try {
-            String query = "DELATE TELCLIENTE WHERE NIT = ?";
+            String query = "DELETE TELCLIENTE WHERE NIT = ?";
             
             PreparedStatement stmt = BD.conectar().prepareStatement(query);
             stmt.setString(1, nit);
