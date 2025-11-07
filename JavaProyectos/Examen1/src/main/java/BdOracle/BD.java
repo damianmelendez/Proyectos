@@ -25,10 +25,10 @@ public class BD {
         try {
             Class.forName(clase);
             conexion = DriverManager.getConnection(url, usuario, pass);
-            System.out.println("¡CONEXIÓN EXITOSA a APP_FACTURACION!");
+            System.out.println("¡CONEXION EXITOSA a APP_FACTURACION!");
 
         } catch (ClassNotFoundException e) {
-            System.err.println("Error: No se encontró el driver de Oracle.");
+            System.err.println("Error: No se encontro el driver de Oracle.");
             e.printStackTrace();
         } catch (SQLException e) {
             System.err.println("Error: Fallo al conectarse a la base de datos.");

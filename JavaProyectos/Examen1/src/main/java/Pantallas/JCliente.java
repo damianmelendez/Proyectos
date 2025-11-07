@@ -4,6 +4,10 @@
  */
 package Pantallas;
 
+import BdOracle.ClientesDB;
+import Modelos.Cliente;
+import java.util.ArrayList;
+
 /**
  *
  * @author DELL
@@ -11,6 +15,10 @@ package Pantallas;
 public class JCliente extends javax.swing.JFrame {
     
     private JClientes VentanaPrincipal;
+    
+    private static ArrayList<Cliente> clientes;
+    private static String nit;
+    private ClientesDB clientesDB;
 
     /**
      * Creates new form JCliente
@@ -21,6 +29,11 @@ public class JCliente extends javax.swing.JFrame {
 
     public JCliente(String nit) {
         initComponents();
+        clientesDB = new ClientesDB();
+        this.nit = nit;
+        if (!nit.isEmpty()) {
+            buscarCliente(nit);
+        }
     }
 
     public JCliente(JClientes Principal) {
@@ -228,6 +241,17 @@ public class JCliente extends javax.swing.JFrame {
                 new JCliente().setVisible(true);
             }
         });
+    }
+    
+    private int buscarCliente(String nit){
+        Cliente Client = clientesDB.consultarCliente(nit);
+        int pocicion = -1;
+        if (Client != null) {
+            
+            
+        } else {
+        }
+        return pocicion;
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
