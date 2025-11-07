@@ -32,7 +32,7 @@ public class Cliente extends Persona {
     }
 
     public Cliente(String Nit, String Nombres, String Apellidos) {
-        super(Nit, Nombres, false);
+        super(Nombres, Apellidos, false);
         this.Nit = Nit;
     }
     
@@ -41,8 +41,8 @@ public class Cliente extends Persona {
         this.Direccion = Direccion;
     }
 
-    public Cliente(String Nit, String Direccion, String Nombre, String Apellido, boolean Genero) {
-        super(Nombre, Apellido, Genero);
+    public Cliente(String Nit, String Nombres, String Apellidos, boolean Genero, String Direccion) {
+        super(Nombres, Apellidos, Genero);
         this.Nit = Nit;
         this.Direccion = Direccion;
     }

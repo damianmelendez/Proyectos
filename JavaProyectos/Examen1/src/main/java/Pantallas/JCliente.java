@@ -162,8 +162,18 @@ public class JCliente extends javax.swing.JFrame {
         });
 
         jbBuscar.setText("Buscar");
+        jbBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbBuscarActionPerformed(evt);
+            }
+        });
 
         jbEliminar.setText("Eliminar");
+        jbEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbEliminarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -246,6 +256,34 @@ public class JCliente extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_jbGuardarActionPerformed
+
+    private void jbBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbBuscarActionPerformed
+        // TODO add your handling code here:
+        if (buscarCliente(jtfNit.getText()) == -1) {
+            JOptionPane.showMessageDialog(this,"Registro no entontrado","Buscar", JOptionPane.INFORMATION_MESSAGE);
+        } else {
+            this.nit = jtfNit.getText();
+        }
+    }//GEN-LAST:event_jbBuscarActionPerformed
+
+    private void jbEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbEliminarActionPerformed
+        // TODO add your handling code here:
+        try {
+            int encontrado = clientesDB.eliminarCliente(jtfNit.getText());
+            
+            if (encontrado > 0) {
+                JOptionPane.showMessageDialog(this,"Eliminado","Eliminar", JOptionPane.INFORMATION_MESSAGE);
+                limpiarCampos();
+            } else if(encontrado == 0){
+                JOptionPane.showMessageDialog(this,"registro no encotrado para eliminar", "eleminar", JOptionPane.INFORMATION_MESSAGE);
+            } else{
+                JOptionPane.showMessageDialog(this,"Error al eliminar","error", JOptionPane.INFORMATION_MESSAGE);
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            e.printStackTrace();
+        }
+    }//GEN-LAST:event_jbEliminarActionPerformed
 
     /**
      * @param args the command line arguments

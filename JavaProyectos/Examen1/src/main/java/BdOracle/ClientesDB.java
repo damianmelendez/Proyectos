@@ -49,8 +49,13 @@ public class ClientesDB {
             ResultSet rs = stmt.executeQuery();
             
             while (rs.next()) {
-                resultado = new Cliente(rs.getString("nit"), rs.getString("Direccion"),
-                        rs.getString("Nombres"), rs.getString("Apellido"), rs.getBoolean("Genero"));
+                resultado = new Cliente(
+                        rs.getString("nit"),
+                        rs.getString("Nombres"),
+                        rs.getString("Apellidos"),
+                        rs.getBoolean("Genero"),
+                        rs.getString("Direccion")
+                );
             }
             stmt.close();
             rs.close();
