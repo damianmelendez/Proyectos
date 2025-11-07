@@ -19,6 +19,10 @@ public class JCliente extends javax.swing.JFrame {
     public JCliente() {
     }
 
+    public JCliente(String nit) {
+        initComponents();
+    }
+
     public JCliente(JClientes Principal) {
         initComponents();
         this.VentanaPrincipal = Principal;
