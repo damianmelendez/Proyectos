@@ -4,17 +4,30 @@
  */
 package Pantallas;
 
+import BdOracle.ClientesBD;
+import Modelos.Cliente;
+import java.util.ArrayList;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author DELL
  */
 public class JClientes extends javax.swing.JFrame {
+    
+    private ArrayList<Cliente> clientes;
+    private ClientesBD clientesBD;
 
     /**
      * Creates new form JClientes
      */
     public JClientes() {
         initComponents();
+        clientesBD = new ClientesBD();
+        this.clientes = clientesBD.consultarClientes();
+        if (!clientes.isEmpty()) {
+            llenarTabla();
+        }
     }
 
     /**
@@ -27,12 +40,12 @@ public class JClientes extends javax.swing.JFrame {
     private void initComponents() {
 
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        jtClientes = new javax.swing.JTable();
         jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        jtClientes.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -43,7 +56,12 @@ public class JClientes extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jtClientes.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jtClientesMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(jtClientes);
 
         jButton1.setText("Crear");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -80,10 +98,18 @@ public class JClientes extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        JCliente JCliente = new JCliente(this);
+        JCliente JCliente = new JCliente("");
         JCliente.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jtClientesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtClientesMouseClicked
+        // TODO add your handling code here:
+        DefaultTableModel tabla = (DefaultTableModel) jtClientes.getModel();
+        JCliente jCliente = new JCliente(tabla.getValueAt(jtClientes.getSelectedRow(), 0).toString());
+        jCliente.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jtClientesMouseClicked
 
     /**
      * @param args the command line arguments
@@ -119,10 +145,24 @@ public class JClientes extends javax.swing.JFrame {
             }
         });
     }
+    private void llenarTabla(){
+        DefaultTableModel tabla = new DefaultTableModel();
+        String[] columnas = {"Nit", "Nombres", "Apellidos"};
+        tabla.setColumnIdentifiers(columnas);
+        Object[] fila = new Object[tabla.getColumnCount()];
+        
+        for (Cliente cliente : clientes) {
+            fila[0] = cliente.getNit();
+            fila[1] = cliente.getNombre();
+            fila[2] = cliente.getApellido();
+            tabla.addRow(fila);
+            jtClientes.setModel(tabla);
+        }
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable jtClientes;
     // End of variables declaration//GEN-END:variables
 }
