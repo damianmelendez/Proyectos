@@ -1,0 +1,10 @@
+{
+
+    "a": ["a1.png", "a2.png", "a3.png", "a4.png"],
+    "b": ["b_regular.png", "b_curva.png"],
+    "S": ["S_grande.png", "S_mediana.png", "S_inclinada.png"],
+    "1": ["1_largo.png", "1_corto.png"],
+    
+    ".": "punto.png",
+    "?": ["interrogacion.png"] 
+}
